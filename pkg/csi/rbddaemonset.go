@@ -63,7 +63,7 @@ func GetRBDDaemonSet(namespace string) *appsv1.DaemonSet {
 			templates.DefaultKubeletDirPath,
 			GetRBDDriverName()),
 	)
-	return &appsv1.DaemonSet{
+	daemonset := &appsv1.DaemonSet{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      RBDDaemonSetName,
 			Namespace: namespace,
@@ -398,4 +398,7 @@ func GetRBDDaemonSet(namespace string) *appsv1.DaemonSet {
 			},
 		},
 	}
+	rbdDaemonset := &appsv1.DaemonSet{}
+	daemonset.DeepCopyInto(rbdDaemonset)
+	return rbdDaemonset
 }

@@ -60,7 +60,7 @@ func GetRBDDeployment(namespace string) *appsv1.Deployment {
 	)
 	snapshotter.Image = sidecarImages.ContainerImages.SnapshotterImageURL
 
-	return &appsv1.Deployment{
+	deployment := &appsv1.Deployment{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      RBDDeploymentName,
 			Namespace: namespace,
@@ -251,4 +251,7 @@ func GetRBDDeployment(namespace string) *appsv1.Deployment {
 			},
 		},
 	}
+	rbdDeployment := &appsv1.Deployment{}
+	deployment.DeepCopyInto(rbdDeployment)
+	return rbdDeployment
 }

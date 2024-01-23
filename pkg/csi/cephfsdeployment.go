@@ -61,7 +61,7 @@ func GetCephFSDeployment(namespace string) *appsv1.Deployment {
 	)
 	snapshotter.Image = sidecarImages.ContainerImages.SnapshotterImageURL
 
-	return &appsv1.Deployment{
+	deployment := &appsv1.Deployment{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      CephFSDeploymentName,
 			Namespace: namespace,
@@ -215,4 +215,7 @@ func GetCephFSDeployment(namespace string) *appsv1.Deployment {
 			},
 		},
 	}
+	cephfsDeployment := &appsv1.Deployment{}
+	deployment.DeepCopyInto(cephfsDeployment)
+	return cephfsDeployment
 }

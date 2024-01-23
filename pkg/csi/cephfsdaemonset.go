@@ -51,7 +51,7 @@ func GetCephFSDaemonSet(namespace string) *appsv1.DaemonSet {
 			templates.DefaultKubeletDirPath,
 			GetCephFSDriverName()),
 	)
-	return &appsv1.DaemonSet{
+	daemonset := &appsv1.DaemonSet{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      CephFSDamonSetName,
 			Namespace: namespace,
@@ -270,4 +270,7 @@ func GetCephFSDaemonSet(namespace string) *appsv1.DaemonSet {
 			},
 		},
 	}
+	cephfsDaemonset := &appsv1.DaemonSet{}
+	daemonset.DeepCopyInto(cephfsDaemonset)
+	return cephfsDaemonset
 }
